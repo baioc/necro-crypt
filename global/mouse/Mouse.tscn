@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://global/mouse/scripts/Mouse.gd" type="Script" id=1]
+
+[node name="Mouse" type="Node2D"]
+position = Vector2( 504.172, 290.026 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Camera" type="Camera2D" parent="."]
+current = true
+smoothing_enabled = true
+drag_margin_left = 0.75
+drag_margin_top = 0.75
+drag_margin_right = 0.75
+drag_margin_bottom = 0.75
+
