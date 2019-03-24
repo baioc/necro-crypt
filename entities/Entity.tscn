@@ -12,21 +12,21 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 32, 32 )
+extents = Vector2( 21, 15 )
 
 [node name="Entity" type="KinematicBody2D"]
 collision_layer = 0
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
+"_edit_group_": true
 }
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-light_mask = 16
+light_mask = 17
 frames = SubResource( 1 )
 animation = "idle"
 
 [node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 4 )
 shape = SubResource( 2 )
 

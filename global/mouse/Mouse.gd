@@ -1,58 +1,55 @@
 extends Node2D
 
-onready var player = get_tree().get_root().get_node("World/Player")
-onready var camera = get_tree().get_root().get_node("World/Mouse/Camera")
-var timer = Timer.new()
 
-var mouse_states = {"on_player": 0, "free": 1, "goto_player": 2}
-var current_state
+enum STATE { FREE, LOCKED, MOVING }
+var state = STATE.FREE
+var focus : Node2D = self
 
-func input():
-	if Input.is_action_just_pressed("ui_goto_player"):
-		timer_start()
-		current_state = mouse_states["goto_player"]
-	if Input.is_action_just_pressed("ui_follows_player"):
-		if current_state == mouse_states["on_player"]:
-			current_state = mouse_states["free"]
-		else:
-			current_state = mouse_states["on_player"]
-func goto_player():
-	position = player.get_position()
-	camera.align()
 
-func free_mouse():
-	position = get_global_mouse_position()
+func goto(target : Vector2):
+	set_global_position(target)
+	$Camera.align()
 
-func on_player():
-	position = player.get_position()
-	camera.align()
+
+func set_target(focus : Node2D):
+	if focus:
+		self.focus = focus
+
+
+func get_target() -> Node2D:
+	return focus
+
 
 func _ready():
-	current_state = mouse_states["free"]
-	timer_proprities()
+	set_target(get_tree().get_root().get_node("World/Player"))
+
 
 func _process(delta):
-	input()
-	control(delta)
+	_check_input()
+	_control(delta)
 
-func control(delta):
-	if current_state == 0:
-		on_player()
-	elif current_state == 1:
-		free_mouse()
-	elif current_state == 2:
-		goto_player()
-		timer_free()
 
-func timer_proprities():
-	timer.set_wait_time(0.4)
-	timer.set_one_shot(true)
-	self.add_child(timer)
+func _check_input():
+	if Input.is_action_just_pressed("ui_camera_center"):
+		state = STATE.MOVING
+		# Blocks input checking until timeout
+		$MoveTimer.start()
+		yield($MoveTimer, "timeout")
 
-func timer_start():
-	timer.start()
-	yield(timer,"timeout")
+	if Input.is_action_just_pressed("ui_camera_lock"):
+		if STATE.FREE == state:
+			state = STATE.LOCKED
+		else:
+			state = STATE.FREE
 
-func timer_free():
-	if timer.is_stopped():
-		current_state = mouse_states["free"]
+
+func _control(delta):
+	match state:
+		STATE.FREE:
+			set_position(get_global_mouse_position())
+		STATE.LOCKED:
+			goto(focus.get_global_position())
+		STATE.MOVING:
+			goto(focus.get_global_position())
+			if $MoveTimer.is_stopped():
+				state = STATE.FREE
