@@ -1,7 +1,7 @@
 extends "res://entities/Entity.gd"
 
 
-func control(delta):
+func _control(delta):
 	velocity = ZERO
 
 	if Input.is_action_pressed("ui_right"):

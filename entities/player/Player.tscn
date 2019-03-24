@@ -5,9 +5,11 @@
 
 [node name="Player" index="0" instance=ExtResource( 1 )]
 collision_layer = 2
+collision_mask = 5
 script = ExtResource( 2 )
 speed = 250
 
 [node name="Sprite" parent="." index="0"]
+self_modulate = Color( 1, 0, 1, 1 )
 light_mask = 80
 

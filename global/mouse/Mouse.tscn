@@ -1,9 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://global/mouse/scripts/Mouse.gd" type="Script" id=1]
+[ext_resource path="res://global/mouse/Mouse.gd" type="Script" id=1]
 
 [node name="Mouse" type="Node2D"]
-position = Vector2( 504.172, 290.026 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
