@@ -1,27 +1,31 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://global/Global.gd" type="Script" id=1]
 [ext_resource path="res://entities/mobs/Monster.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://global/mouse/Mouse.tscn" type="PackedScene" id=4]
+[ext_resource path="res://global/Interface_control/Interface_control.tscn" type="PackedScene" id=5]
 
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="Monsters" type="Node2D" parent="."]
-position = Vector2( 295.087, 117.801 )
+position = Vector2( -4.29355, -1.131 )
 
 [node name="Monster" parent="Monsters" instance=ExtResource( 2 )]
+position = Vector2( 430.616, 203.005 )
 
 [node name="Monster_2" parent="Monsters" instance=ExtResource( 2 )]
-position = Vector2( -78.1455, 274.093 )
+position = Vector2( 340.167, 382.772 )
 
 [node name="Monster_3" parent="Monsters" instance=ExtResource( 2 )]
-position = Vector2( 557.516, 305.584 )
+position = Vector2( 657.993, 404.01 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 512, 300 )
 
 [node name="Mouse" parent="." instance=ExtResource( 4 )]
 position = Vector2( 512, 300 )
+
+[node name="Interface_control" parent="." instance=ExtResource( 5 )]
 

@@ -4,6 +4,12 @@ extends "res://entities/Entity.gd"
 enum STATE { IDLE, MOVE, FIGHT }
 var state = STATE.IDLE
 var target : Node2D = null
+var selection = false
+
+
+func select(is_select):
+	$Box_Select.visible = is_select
+	selection = is_select
 
 
 func goto(location : Vector2):
@@ -23,7 +29,7 @@ func idle():
 
 
 func _move():
-	var dir := target.get_global_position() - self.get_global_position()
+	var dir := target.get_position() - self.get_global_position()
 	# @TODO: better unit formation when reaching target location
 	if dir.length() > attack_range:
 		# @TODO: pathfind towards target
