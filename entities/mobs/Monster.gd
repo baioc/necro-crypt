@@ -1,15 +1,12 @@
 extends "res://entities/Entity.gd"
 
 
+export var friend : bool = false
+
 enum STATE { IDLE, MOVE, FIGHT }
 var state = STATE.IDLE
+
 var target : Node2D = null
-var selection = false
-
-
-func select(is_select):
-	$Box_Select.visible = is_select
-	selection = is_select
 
 
 func goto(location : Vector2):
@@ -28,6 +25,18 @@ func idle():
 	state = STATE.IDLE
 
 
+func select(flag : bool):
+	$Selection.set_visible(flag)
+
+
+func is_controllable() -> bool:
+	return friend
+
+
+func control(flag : bool):
+	friend = flag
+
+
 func _move():
 	var dir := target.get_position() - self.get_global_position()
 	# @TODO: better unit formation when reaching target location
@@ -39,7 +48,8 @@ func _move():
 
 
 func _fight():
-	if not target:
+	# @TODO: check if target was lost
+	if target == null:
 		idle()
 		return
 
@@ -51,7 +61,7 @@ func _fight():
 
 
 func _idle():
-	# @TODO: Roam around when enemy, stand still when friend
+	# @TODO: roam around when enemy, stand still when friend
 	velocity = ZERO
 
 

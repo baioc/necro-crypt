@@ -2,7 +2,8 @@ extends Node2D
 
 
 enum STATE { FREE, LOCKED, MOVING }
-var state = STATE.FREE
+var state = STATE.LOCKED
+
 var focus : Node2D = self
 
 
@@ -11,39 +12,30 @@ func goto(target : Vector2):
 	$Camera.align()
 
 
-func set_target(focus : Node2D):
-	if focus:
-		self.focus = focus
-
-
-func get_target() -> Node2D:
-	return focus
-
-
-func _ready():
-	set_target(get_tree().get_root().get_node("World/Player"))
+func set_target(target : Node2D):
+	focus = target
 
 
 func _process(delta):
 	_check_input()
-	_control(delta)
+	_control()
 
 
 func _check_input():
-	if Input.is_action_just_pressed("ui_camera_center"):
-		state = STATE.MOVING
-		# Blocks input checking until timeout
-		$MoveTimer.start()
-		yield($MoveTimer, "timeout")
-
 	if Input.is_action_just_pressed("ui_camera_lock"):
 		if STATE.FREE == state:
 			state = STATE.LOCKED
 		else:
 			state = STATE.FREE
 
+	elif Input.is_action_pressed("ui_camera_center"):
+		state = STATE.MOVING
+		# blocks input checking until timeout
+		$MoveTimer.start()
+		yield($MoveTimer, "timeout")
 
-func _control(delta):
+
+func _control():
 	match state:
 		STATE.FREE:
 			set_position(get_global_mouse_position())

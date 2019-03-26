@@ -3,8 +3,8 @@
 [ext_resource path="res://global/Global.gd" type="Script" id=1]
 [ext_resource path="res://entities/mobs/Monster.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://global/mouse/Mouse.tscn" type="PackedScene" id=4]
-[ext_resource path="res://global/Interface_control/Interface_control.tscn" type="PackedScene" id=5]
+[ext_resource path="res://control/commander/Commander.tscn" type="PackedScene" id=4]
+[ext_resource path="res://control/camera/Camera.tscn" type="PackedScene" id=5]
 
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
@@ -14,18 +14,21 @@ position = Vector2( -4.29355, -1.131 )
 
 [node name="Monster" parent="Monsters" instance=ExtResource( 2 )]
 position = Vector2( 430.616, 203.005 )
+friend = true
 
 [node name="Monster_2" parent="Monsters" instance=ExtResource( 2 )]
 position = Vector2( 340.167, 382.772 )
+friend = true
 
 [node name="Monster_3" parent="Monsters" instance=ExtResource( 2 )]
 position = Vector2( 657.993, 404.01 )
+friend = true
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 512, 300 )
 
-[node name="Mouse" parent="." instance=ExtResource( 4 )]
-position = Vector2( 512, 300 )
+[node name="Commander" parent="." instance=ExtResource( 4 )]
 
-[node name="Interface_control" parent="." instance=ExtResource( 5 )]
+[node name="Camera" parent="." instance=ExtResource( 5 )]
+position = Vector2( 512, 300 )
 

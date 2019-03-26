@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://control/commander/Commander.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="Commander" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.15845
+margin_right = -2.15845
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Selection" type="ColorRect" parent="."]
+visible = false
+light_mask = 257
+color = Color( 0.431373, 0.717647, 0.352941, 0.45098 )
+
+[node name="Area" type="Area2D" parent="Selection"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="Collider" type="CollisionShape2D" parent="Selection/Area"]
+shape = SubResource( 1 )
+
