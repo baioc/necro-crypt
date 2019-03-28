@@ -18,14 +18,17 @@ friend = true
 
 [node name="Monster_2" parent="Monsters" instance=ExtResource( 2 )]
 position = Vector2( 340.167, 382.772 )
-friend = true
 
 [node name="Monster_3" parent="Monsters" instance=ExtResource( 2 )]
 position = Vector2( 657.993, 404.01 )
 friend = true
 
+[node name="Monster_4" parent="Monsters" instance=ExtResource( 2 )]
+position = Vector2( 802.038, 184.619 )
+
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 512, 300 )
+speed = 100
 
 [node name="Commander" parent="." instance=ExtResource( 4 )]
 
