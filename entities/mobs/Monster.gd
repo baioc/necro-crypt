@@ -2,68 +2,95 @@ extends "res://entities/Entity.gd"
 
 
 export var friend : bool = false
+export var friendly_texture : Texture
+export var enemy_texture : Texture
 var selected : bool = false
 
-enum STATE { IDLE, MOVE, FIGHT }
-var state = STATE.IDLE
+enum STATE { idle, move, fight }
+const SAFE_MARGIN := 5
+const BODY_OFFSET := 45.2548339959
+var state = STATE.idle
 var target : Node2D = null
 
 
 func goto(location : Vector2):
-	print("march!")
 	target = Node2D.new()
 	get_parent().add_child(target)
 	target.set_global_position(location)
-	state = STATE.MOVE
+	state = STATE.move
 
 
 func attack(entity : Node2D):
-	print("attack!")
 	target = entity
-	state = STATE.FIGHT
+	state = STATE.fight
 
 
 func idle():
-	print("halt!")
 	target = null
-	state = STATE.IDLE
+	state = STATE.idle
 
 
-func select(flag : bool):
-	selected = flag
+func select(enable : bool):
+	selected = enable
 	if selected:
 		_on_mouse_entered()
 	else:
 		_on_mouse_exited()
 
 
-func is_controllable() -> bool:
-	return friend
+func control(enable : bool):
+	friend = enable
 
-
-func control(flag : bool):
-	friend = flag
 	if not friend:
+		if is_in_group("troops"):
+			remove_from_group("troops")
+		add_to_group("enemies")
+
+		$Health/Bar.set_progress_texture(enemy_texture)
+
 		$Selection.set_modulate(Color.red)
+		$Selection.set_z_index(0)
+
 	else:
+		if is_in_group("enemies"):
+			remove_from_group("enemies")
+		add_to_group("troops")
+
+		$Health/Bar.set_progress_texture(friendly_texture)
+
 		$Selection.set_modulate(Color.green)
+		$Selection.set_z_index(-1)
 
 
 func die():
-	print("died.")
-	if not is_controllable():
-		idle()
-		select(false)
-		set_modulate(Color.blue)
+	# @TODO: signal death to followers & commander
+	idle()
+	select(false)
+
+	if friend:
+		.die() #YouOnlyUndieOnce
 	else:
-		.die() # you only undie once
+		set_modulate(Color.black)
 
 
 func reanimate():
-	print("reanimate!")
 	update_health(health_max)
 	set_modulate(Color.white)
 	control(true)
+
+
+func update_health(delta):
+	.update_health(delta)
+	$Health/Bar.show()
+
+
+func _on_attack_conected(body):
+	if self.is_in_group("troops") and body.is_in_group("troops"):
+		return
+	elif self.is_in_group("enemies") and body.is_in_group("enemies"):
+		return
+
+	._on_attack_conected(body)
 
 
 func _ready():
@@ -72,18 +99,18 @@ func _ready():
 
 func _control(delta):
 	match state:
-		STATE.MOVE:
+		STATE.move:
 			_move()
-		STATE.FIGHT:
+		STATE.fight:
 			_fight()
-		STATE.IDLE:
+		STATE.idle:
 			_idle()
 
 
 func _move():
-	var dir := target.get_global_position() - self.get_global_position()
+	var dir = target.get_global_position() - self.get_global_position()
 	# @TODO: better unit formation when reaching target location
-	if dir.length() > attack_range:
+	if dir.length() > SAFE_MARGIN:
 		# @TODO: pathfind towards target
 		velocity = dir.normalized() * speed
 	else:
@@ -91,12 +118,13 @@ func _move():
 
 
 func _fight():
-	if target == null:
+	# @TODO: lose sight of target through fog of war
+	if target == null or target.is_dead():
 		idle()
 		return
 
-	var dir := target.get_global_position() - self.get_global_position()
-	if dir.length() <= attack_range:
+	var dir = target.get_global_position() - self.get_global_position()
+	if dir.length() <= BODY_OFFSET + attack_range:
 		_hit(dir)
 	else:
 		_move()

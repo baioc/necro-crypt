@@ -31,9 +31,9 @@ func selection_update(current_pos : Vector2):
 func selection_apply():
 	selection_clear()
 
-	for unit in $Selection/Area.get_overlapping_bodies():
-		if unit.is_controllable():
-			selection_add(unit)
+	for monster in $Selection/Area.get_overlapping_bodies():
+		if monster.is_in_group("troops"):
+			selection_add(monster)
 
 	$Selection.set_visible(false)
 
@@ -65,13 +65,20 @@ func _physics_process(delta): # using _physics for world space state
 		var clicked := space.intersect_point(mouse, 1, [self], $Selection/Area.get_collision_mask())
 		var found = clicked.pop_front()
 
-		if found == null or found["collider"].is_controllable():
+		# command: move
+		if found == null or found["collider"].is_in_group("troops"):
+			# @TODO: visual indicator at target location
 			for unit in troops:
 				unit.goto(mouse)
+
+		# command: reanimate
 		elif found["collider"].is_dead():
+			# @TODO: allow depending on distance to player
 			found["collider"].reanimate()
 			selection_clear()
 			selection_add(found["collider"])
+
+		# command: attack
 		else:
 			for unit in troops:
 				unit.attack(found["collider"])
