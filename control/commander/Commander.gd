@@ -40,14 +40,23 @@ func selection_apply():
 
 func selection_clear():
 	for unit in troops:
-		unit.select(false)
+		if unit.get_ref():
+			unit.get_ref().select(false)
 
 	troops.clear()
 
 
 func selection_add(unit):
 	unit.select(true)
-	troops.append(unit)
+	troops.append(weakref(unit))
+
+
+func send_command(unit : WeakRef, command : String, argv : Array = []):
+	if !unit.get_ref():
+		troops.erase(unit)
+		return
+
+	unit.get_ref().callv(command, argv)
 
 
 func _physics_process(delta): # using _physics for world space state
@@ -67,9 +76,8 @@ func _physics_process(delta): # using _physics for world space state
 
 		# command: move
 		if found == null or found["collider"].is_in_group("troops"):
-			# @TODO: visual indicator at target location
 			for unit in troops:
-				unit.goto(mouse)
+				send_command(unit, "goto", [mouse])
 
 		# command: reanimate
 		elif found["collider"].is_dead():
@@ -81,8 +89,8 @@ func _physics_process(delta): # using _physics for world space state
 		# command: attack
 		else:
 			for unit in troops:
-				unit.attack(found["collider"])
+				send_command(unit, "attack", [found["collider"]])
 
 	if Input.is_action_just_pressed("ui_cancel"):
 		for unit in troops:
-			unit.idle()
+			send_command(unit, "idle")

@@ -19,7 +19,7 @@ func is_dead() -> bool:
 	return health <= 0
 
 
-func update_health(delta):
+func update_health(delta, source : Node2D = null):
 	if delta <= 0:
 		$Health/Delta.set_text(str(-delta))
 		$SoundFX/Hit.play()
@@ -69,7 +69,7 @@ func _on_attack_conected(body):
 	if self == body:
 		return
 	elif body.has_method("update_health") and not body.is_dead():
-		body.update_health(-attack_damage)
+		body.update_health(-attack_damage, self)
 
 
 func _ready():
