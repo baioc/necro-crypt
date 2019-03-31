@@ -7,8 +7,6 @@ export var enemy_texture : Texture
 var selected : bool = false
 
 enum STATE { idle, move, fight }
-const SAFE_MARGIN := 5
-const BODY_OFFSET := 45.2548339959
 var state = STATE.idle
 var target : Node2D = null
 
@@ -74,9 +72,12 @@ func die():
 
 
 func reanimate():
-	update_health(health_max)
-	set_modulate(Color.white)
+	update_health(health_max) # @NOTE: revive with partial health (?)
 	control(true)
+
+	set_modulate(Color.white)
+
+	$SoundFX/Reanimate.play()
 
 
 func update_health(delta):

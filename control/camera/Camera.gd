@@ -1,10 +1,10 @@
 extends Node2D
 
 
-enum STATE { FREE, LOCKED, MOVING }
-var state = STATE.LOCKED
+enum STATE { free, locked, moving }
+var state = STATE.locked
 
-var focus : Node2D = self
+var focus : WeakRef
 
 
 func goto(target : Vector2):
@@ -13,7 +13,7 @@ func goto(target : Vector2):
 
 
 func set_target(target : Node2D):
-	focus = target
+	focus = weakref(target)
 
 
 func _process(delta):
@@ -23,25 +23,30 @@ func _process(delta):
 
 func _check_input():
 	if Input.is_action_just_pressed("ui_camera_lock"):
-		if STATE.FREE == state:
-			state = STATE.LOCKED
+		if STATE.free == state:
+			state = STATE.locked
 		else:
-			state = STATE.FREE
+			state = STATE.free
 
 	elif Input.is_action_pressed("ui_camera_center"):
-		state = STATE.MOVING
+		state = STATE.moving
 		# blocks input checking until timeout
 		$MoveTimer.start()
 		yield($MoveTimer, "timeout")
 
 
 func _control():
+	# check if target was destroyed
+	if !focus.get_ref():
+		state = STATE.free
+		set_target(self)
+
 	match state:
-		STATE.FREE:
+		STATE.free:
 			set_position(get_global_mouse_position())
-		STATE.LOCKED:
-			goto(focus.get_global_position())
-		STATE.MOVING:
-			goto(focus.get_global_position())
+		STATE.locked:
+			goto(focus.get_ref().get_global_position())
+		STATE.moving:
+			goto(focus.get_ref().get_global_position())
 			if $MoveTimer.is_stopped():
-				state = STATE.FREE
+				state = STATE.free

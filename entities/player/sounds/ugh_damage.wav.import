@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ugh_damage.wav-53820c3f4fc1d9d13ca9fd3541e54253.sample"
+
+[deps]
+
+source_file="res://entities/player/sounds/ugh_damage.wav"
+dest_files=[ "res://.import/ugh_damage.wav-53820c3f4fc1d9d13ca9fd3541e54253.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

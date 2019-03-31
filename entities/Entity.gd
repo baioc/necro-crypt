@@ -11,6 +11,8 @@ onready var health := health_max
 export var attack_range : float = 32.0
 export var attack_damage : int = 20
 export var attacks_per_second : float = 0.5
+const BODY_OFFSET : float = 45.2548339959
+const SAFE_MARGIN := 5
 
 
 func is_dead() -> bool:
@@ -20,6 +22,7 @@ func is_dead() -> bool:
 func update_health(delta):
 	if delta <= 0:
 		$Health/Delta.set_text(str(-delta))
+		$SoundFX/Hit.play()
 	else:
 		$Health/Delta.set_text("+" + str(delta))
 	$Health/Animator.play("health_change")
@@ -28,6 +31,7 @@ func update_health(delta):
 	$Health/Bar.value = health
 
 	if is_dead():
+		$SoundFX/Death.play()
 		die()
 		return
 	else:
@@ -64,7 +68,7 @@ func _on_attack_done():
 func _on_attack_conected(body):
 	if self == body:
 		return
-	elif body.has_method("update_health") and not body.is_dead() and body.get_node("Animator").get_current_animation() != "blink":
+	elif body.has_method("update_health") and not body.is_dead():
 		body.update_health(-attack_damage)
 
 
@@ -77,4 +81,10 @@ func _ready():
 
 func _physics_process(delta):
 	_control(delta)
+
+	if velocity.length() > SAFE_MARGIN and not $SoundFX/Step.is_playing():
+		$SoundFX/Step.play()
+	elif velocity.length() <= SAFE_MARGIN:
+		$SoundFX/Step.stop()
+
 	velocity = move_and_slide(velocity)

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sword_on_flesh.wav-a72fa773d0af23616aa3d2414ee200ea.sample"
+
+[deps]
+
+source_file="res://entities/sounds/sword_on_flesh.wav"
+dest_files=[ "res://.import/sword_on_flesh.wav-a72fa773d0af23616aa3d2414ee200ea.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
