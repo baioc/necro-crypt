@@ -8,24 +8,30 @@ var selected : bool = false
 
 enum STATE { idle, move, fight }
 var state = STATE.idle
-var target : Node2D = null
+var target : WeakRef = null
 
 
 func goto(location : Vector2):
-	target = Node2D.new()
-	get_parent().add_child(target)
-	target.set_global_position(location)
+	var container = Node2D.new()
+	get_parent().add_child(container)
+	container.set_global_position(location)
+
+	target = weakref(container)
 	state = STATE.move
 
 
 func attack(entity : Node2D):
-	target = entity
+	target = weakref(entity)
 	state = STATE.fight
 
 
 func idle():
 	target = null
 	state = STATE.idle
+
+
+func is_idle() -> bool:
+	return state == STATE.idle
 
 
 func select(enable : bool):
@@ -60,17 +66,6 @@ func control(enable : bool):
 		$Selection.set_z_index(-1)
 
 
-func die():
-	# @TODO: signal death to followers & commander
-	idle()
-	select(false)
-
-	if friend:
-		.die() #YouOnlyUndieOnce
-	else:
-		set_modulate(Color.black)
-
-
 func reanimate():
 	update_health(health_max) # @NOTE: revive with partial health (?)
 	control(true)
@@ -80,9 +75,21 @@ func reanimate():
 	$SoundFX/Reanimate.play()
 
 
-func update_health(delta):
+func die():
+	if friend:
+		.die() #YouOnlyUndieOnce
+	else:
+		set_modulate(Color.black)
+
+
+func update_health(delta, source : Node2D = null):
+	if delta < 0:
+		$Health/Bar.show()
+
+		if source != null:
+			attack(source)
+
 	.update_health(delta)
-	$Health/Bar.show()
 
 
 func _on_attack_conected(body):
@@ -99,6 +106,10 @@ func _ready():
 
 
 func _control(delta):
+	if is_dead():
+		_idle()
+		return
+
 	match state:
 		STATE.move:
 			_move()
@@ -109,10 +120,10 @@ func _control(delta):
 
 
 func _move():
-	var dir = target.get_global_position() - self.get_global_position()
+	var dir = target.get_ref().get_global_position() - self.get_global_position()
 	# @TODO: better unit formation when reaching target location
 	if dir.length() > SAFE_MARGIN:
-		# @TODO: pathfind towards target
+		# @TODO: pathfind towards target (add navigation visual indicator)
 		velocity = dir.normalized() * speed
 	else:
 		idle()
@@ -120,11 +131,11 @@ func _move():
 
 func _fight():
 	# @TODO: lose sight of target through fog of war
-	if target == null or target.is_dead():
+	if target == null or !target.get_ref() or target.get_ref().is_dead():
 		idle()
 		return
 
-	var dir = target.get_global_position() - self.get_global_position()
+	var dir = target.get_ref().get_global_position() - self.get_global_position()
 	if dir.length() <= BODY_OFFSET + attack_range:
 		_hit(dir)
 	else:
