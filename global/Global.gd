@@ -2,10 +2,7 @@ extends Node
 
 
 func _ready():
-	$Camera.set_target($Player)
-
-	# @NOTE: testing undeath
-	$Monsters/Monster_2.update_health(-$Monsters/Monster_2.health)
+	$Camera.set_target($Player/Character)
 
 
 func _process(delta):

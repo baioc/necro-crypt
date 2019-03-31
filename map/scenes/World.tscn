@@ -26,10 +26,12 @@ friend = true
 [node name="Monster_4" parent="Monsters" instance=ExtResource( 2 )]
 position = Vector2( 802.038, 184.619 )
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
+[node name="Player" type="Node2D" parent="."]
+
+[node name="Character" parent="Player" instance=ExtResource( 3 )]
 position = Vector2( 512, 300 )
 
-[node name="Commander" parent="." instance=ExtResource( 4 )]
+[node name="Commander" parent="Player" instance=ExtResource( 4 )]
 
 [node name="Camera" parent="." instance=ExtResource( 5 )]
 position = Vector2( 512, 300 )
