@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://entities/Entity.gd" type="Script" id=1]
 [ext_resource path="res://global/godot.png" type="Texture" id=2]
 [ext_resource path="res://entities/sprites/bar_border.png" type="Texture" id=3]
 [ext_resource path="res://entities/sprites/bar_fill_blue.png" type="Texture" id=4]
 [ext_resource path="res://ui/fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://entities/sounds/step_short.ogg" type="AudioStream" id=6]
+[ext_resource path="res://entities/sounds/sword_on_flesh.wav" type="AudioStream" id=7]
+[ext_resource path="res://entities/sounds/ugh_death.wav" type="AudioStream" id=8]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -61,11 +64,10 @@ tracks/2/keys = {
 "values": [ 30, 16 ]
 }
 
-[sub_resource type="ConvexPolygonShape2D" id=6]
+[sub_resource type="ConvexPolygonShape2D" id=7]
 points = PoolVector2Array( 0, -24, 16, -30, 28, -16, 28, 16, 16, 30, 0, 24 )
 
-[sub_resource type="Animation" id=5]
-resource_name = "blink"
+[sub_resource type="Animation" id=6]
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
@@ -148,13 +150,37 @@ __meta__ = {
 }
 
 [node name="Collider" type="CollisionShape2D" parent="Attack"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="Timer" type="Timer" parent="Attack"]
 one_shot = true
 
+[node name="SoundFX" type="Node2D" parent="."]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Step" type="AudioStreamPlayer2D" parent="SoundFX"]
+stream = ExtResource( 6 )
+volume_db = 20.0
+max_distance = 1540.0
+attenuation = 0.5
+
+[node name="Hit" type="AudioStreamPlayer2D" parent="SoundFX"]
+stream = ExtResource( 7 )
+volume_db = -24.0
+max_distance = 1540.0
+attenuation = 0.406126
+
+[node name="Death" type="AudioStreamPlayer2D" parent="SoundFX"]
+stream = ExtResource( 8 )
+volume_db = -26.0
+pitch_scale = 1.2
+max_distance = 1540.0
+attenuation = 0.297302
+
 [node name="Animator" type="AnimationPlayer" parent="."]
-anims/blink = SubResource( 5 )
+anims/blink = SubResource( 6 )
 
 [connection signal="body_entered" from="Attack" to="." method="_on_attack_conected"]
 [connection signal="timeout" from="Attack/Timer" to="." method="_on_attack_done"]
