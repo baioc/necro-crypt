@@ -1,0 +1,125 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://map/Tiles/wall-0001.png" type="Texture" id=1]
+[ext_resource path="res://map/Tiles/teto_vert-0003.png" type="Texture" id=2]
+[ext_resource path="res://map/Tiles/teto-0002.png" type="Texture" id=3]
+[ext_resource path="res://map/Tiles/vert1.png" type="Texture" id=4]
+[ext_resource path="res://map/Tiles/vert2.png" type="Texture" id=5]
+[ext_resource path="res://map/Tiles/vert3.png" type="Texture" id=6]
+[ext_resource path="res://map/Tiles/vert4.png" type="Texture" id=7]
+[ext_resource path="res://map/Tiles/stone tile.png" type="Texture" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 15.9676, 11.1485 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 14.8101, 16.3126 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 16.0979, 15.454 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 15.454, 15.8833 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 15.3046, 15.3848 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 15.9996, 16.2602 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 16, 16 )
+
+[node name="Node2D" type="Node2D"]
+position = Vector2( 22.238, 7.41267 )
+
+[node name="Wall" type="Sprite" parent="."]
+editor/display_folded = true
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Wall"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D"]
+position = Vector2( 0.0679932, -5.83568 )
+shape = SubResource( 1 )
+
+[node name="Teto_Vert" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 43.357, -10.5173 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Teto_Vert"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Teto_Vert/StaticBody2D"]
+shape = SubResource( 2 )
+
+[node name="Teto_Hori" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( -26.4006, 34.5568 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Teto_Hori"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Teto_Hori/StaticBody2D"]
+shape = SubResource( 3 )
+
+[node name="Teto_Conect1" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( -0.429276, -38.8496 )
+texture = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Teto_Conect1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Teto_Conect1/StaticBody2D"]
+position = Vector2( -0.429276, -1.0732 )
+shape = SubResource( 4 )
+
+[node name="Teto_Conect2" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 16.0979, 44.8595 )
+texture = ExtResource( 5 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Teto_Conect2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Teto_Conect2/StaticBody2D"]
+position = Vector2( -0.858559, 0.214638 )
+shape = SubResource( 5 )
+
+[node name="Teto_Conect3" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( -39.9228, -17.3857 )
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Teto_Conect3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Teto_Conect3/StaticBody2D"]
+shape = SubResource( 6 )
+
+[node name="Teto_Conect4" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 51.2987, 37.7764 )
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Teto_Conect4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Teto_Conect4/StaticBody2D"]
+shape = SubResource( 7 )
+
+[node name="Floor" type="Sprite" parent="."]
+texture = ExtResource( 8 )
+
