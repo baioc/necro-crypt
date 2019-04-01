@@ -2,7 +2,7 @@ extends Node
 
 
 func _ready():
-	$Camera.set_target($Player/Character)
+	$Camera.set_target($Player)
 
 
 func _process(delta):
@@ -10,6 +10,6 @@ func _process(delta):
 		get_tree().quit()
 
 	# target player when out of immediate combat
-	for monster in $Monsters.get_children():
-		if monster.is_in_group("enemies") and monster.is_idle():
-			monster.attack($Player/Character)
+	#for monster in $Monsters.get_children():
+	#	if monster.is_in_group("enemies") and monster.is_idle():
+	#		monster.attack($Player)

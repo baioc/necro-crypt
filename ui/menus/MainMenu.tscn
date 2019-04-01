@@ -1,0 +1,84 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://ui/menus/MenuBtns.gd" type="Script" id=1]
+[ext_resource path="res://ui/fonts/gameNameNosifer64.tres" type="DynamicFont" id=2]
+[ext_resource path="res://ui/fonts/FonteTrevosaBtns.tres" type="DynamicFont" id=3]
+[ext_resource path="res://ui/fonts/fonteNutellaDeSitezinhoahushahushaushua.tres" type="DynamicFont" id=4]
+
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="GameName" type="Label" parent="."]
+margin_top = 80.0
+margin_right = 1024.0
+margin_bottom = 192.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.67451, 0, 0, 1 )
+text = "Necro Crypt"
+align = 1
+
+[node name="PlayBtn" type="Button" parent="."]
+margin_left = 379.911
+margin_top = 220.0
+margin_right = 659.911
+margin_bottom = 278.0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="PlayBtn"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "Play"
+align = 1
+valign = 1
+
+[node name="TutorialBtn" type="Button" parent="."]
+margin_left = 378.282
+margin_top = 300.0
+margin_right = 658.282
+margin_bottom = 358.0
+
+[node name="Label" type="Label" parent="TutorialBtn"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "Tutorial"
+align = 1
+valign = 1
+
+[node name="ExitBtn" type="Button" parent="."]
+margin_left = 378.282
+margin_top = 376.564
+margin_right = 658.282
+margin_bottom = 434.564
+
+[node name="Label" type="Label" parent="ExitBtn"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "Exit"
+align = 1
+valign = 1
+
+[node name="Credits" type="Label" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 293.479
+margin_top = 194.752
+margin_right = -264.521
+margin_bottom = 239.752
+custom_fonts/font = ExtResource( 4 )
+text = "An UFSC Game Jam 2 submission
+By Anderson H. Notholt, Cainã Caldas, Gabriel B. Sant'Anna"
+align = 1
+
+[connection signal="pressed" from="PlayBtn" to="." method="_on_PlayBtn_pressed"]
+[connection signal="pressed" from="TutorialBtn" to="." method="_on_TutorialBtn_pressed"]
+[connection signal="pressed" from="ExitBtn" to="." method="_on_ExitBtn_pressed"]
