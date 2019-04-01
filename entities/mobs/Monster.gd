@@ -67,19 +67,22 @@ func control(enable : bool):
 
 
 func reanimate():
+	idle()
 	update_health(health_max) # @NOTE: revive with partial health (?)
 	control(true)
 
-	set_modulate(Color.white)
-
 	$SoundFX/Reanimate.play()
+
+	$Sprite.play("reanimate")
+	anim_lock = true
 
 
 func die():
 	if friend:
 		.die() #YouOnlyUndieOnce
 	else:
-		set_modulate(Color.black)
+		$Selection.set_modulate(Color.green)
+		$Selection.set_z_index(-1)
 
 
 func update_health(delta, source : Node2D = null):

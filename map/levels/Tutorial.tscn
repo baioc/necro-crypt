@@ -419,3 +419,4 @@ position = Vector2( 512, 300 )
 [connection signal="pressed" from="UI/MainMenuBtn/MenuBtn" to="UI/MainMenuBtn/MenuBtn" method="_on_MenuBtn_pressed"]
 [connection signal="pressed" from="UI/MainMenuBtn_2/MenuBtn" to="UI/MainMenuBtn_2/MenuBtn" method="_on_MenuBtn_pressed"]
 [connection signal="pressed" from="UI/MainMenuBtn_3/MenuBtn" to="UI/MainMenuBtn_3/MenuBtn" method="_on_MenuBtn_pressed"]
+[connection signal="spellcast" from="Commander" to="Player" method="_on_spellcast"]
