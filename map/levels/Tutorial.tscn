@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://global/Global.gd" type="Script" id=1]
-[ext_resource path="res://map/tilemap.tres" type="TileSet" id=2]
+[ext_resource path="res://map/prefabs/TileMap.tres" type="TileSet" id=2]
 [ext_resource path="res://entities/mobs/Monster.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/menus/MenuBtns.gd" type="Script" id=4]
 [ext_resource path="res://ui/fonts/FonteTrevosaBtns.tres" type="DynamicFont" id=5]

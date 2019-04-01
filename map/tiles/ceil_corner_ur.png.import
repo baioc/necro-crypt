@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/vert1.png-08b37985419e2de130382779d17dcd29.stex"
+path="res://.import/ceil_corner_ur.png-429c7a6b8a63287c072b04f7ff968697.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://map/Tiles/vert1.png"
-dest_files=[ "res://.import/vert1.png-08b37985419e2de130382779d17dcd29.stex" ]
+source_file="res://map/tiles/ceil_corner_ur.png"
+dest_files=[ "res://.import/ceil_corner_ur.png-429c7a6b8a63287c072b04f7ff968697.stex" ]
 
 [params]
 

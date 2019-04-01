@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/teto_vert-0003.png-f746e3b823eab0994723599c7a750387.stex"
+path="res://.import/ceil_corner_ll.png-eea227ab47f9302f8692b6596c271d24.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://map/Tiles/teto_vert-0003.png"
-dest_files=[ "res://.import/teto_vert-0003.png-f746e3b823eab0994723599c7a750387.stex" ]
+source_file="res://map/tiles/ceil_corner_ll.png"
+dest_files=[ "res://.import/ceil_corner_ll.png-eea227ab47f9302f8692b6596c271d24.stex" ]
 
 [params]
 
