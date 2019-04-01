@@ -8,11 +8,14 @@ var velocity := ZERO
 export var health_max : int = 100
 onready var health := health_max
 
-export var attack_range : float = 32.0
 export var attack_damage : int = 20
 export var attacks_per_second : float = 0.5
-const BODY_OFFSET : float = 45.2548339959
-const SAFE_MARGIN := 5
+export var attack_range : float = 18
+const BODY_OFFSET : float = 36.87
+const SAFE_MARGIN := 3.0
+
+var facing_right := true
+var anim_lock := false
 
 
 func is_dead() -> bool:
@@ -32,6 +35,7 @@ func update_health(delta, source : Node2D = null):
 
 	if is_dead():
 		$SoundFX/Death.play()
+		$Sprite.play("dead")
 		die()
 		return
 	else:
@@ -53,6 +57,13 @@ func _hit(dir : Vector2):
 	"""Perform attack in specified direction"""
 	if not $Attack/Timer.is_stopped():
 		return
+
+	if facing_right:
+		$Sprite.play("attack_right")
+	else:
+		$Sprite.play("attack_left")
+
+	anim_lock = true
 
 	$Attack.set_position(dir.normalized() * attack_range)
 	$Attack.set_rotation(dir.angle())
@@ -81,10 +92,33 @@ func _ready():
 
 func _physics_process(delta):
 	_control(delta)
+	velocity = move_and_slide(velocity)
+
+	if is_dead():
+		return
 
 	if velocity.length() > SAFE_MARGIN and not $SoundFX/Step.is_playing():
 		$SoundFX/Step.play()
 	elif velocity.length() <= SAFE_MARGIN:
 		$SoundFX/Step.stop()
 
-	velocity = move_and_slide(velocity)
+	if anim_lock:
+		return
+
+	if velocity.length() > 0:
+		if velocity.x > 0 or (velocity.x == 0 and facing_right):
+			facing_right = true
+			$Sprite.play("walk_right")
+		elif velocity.x < 0 or (velocity.x == 0 and not facing_right):
+			facing_right = false
+			$Sprite.play("walk_left")
+	else:
+		if facing_right:
+			$Sprite.play("idle_right")
+		else:
+			$Sprite.play("idle_left")
+
+
+func _on_animation_finished():
+	if $Sprite.get_animation().begins_with("attack") or $Sprite.get_animation().begins_with("reanimate"):
+		anim_lock = false

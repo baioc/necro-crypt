@@ -1,6 +1,8 @@
 extends Control
 
 
+signal spellcast
+
 var troops := []
 
 var initial_pos : Vector2
@@ -83,6 +85,7 @@ func _physics_process(delta): # using _physics for world space state
 		elif found["collider"].is_dead():
 			# @TODO: allow depending on distance to player
 			found["collider"].reanimate()
+			emit_signal("spellcast")
 			selection_clear()
 			selection_add(found["collider"])
 

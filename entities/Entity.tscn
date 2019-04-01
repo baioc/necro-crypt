@@ -1,27 +1,105 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://entities/Entity.gd" type="Script" id=1]
-[ext_resource path="res://global/godot.png" type="Texture" id=2]
-[ext_resource path="res://entities/sprites/bar_border.png" type="Texture" id=3]
-[ext_resource path="res://entities/sprites/bar_fill_blue.png" type="Texture" id=4]
-[ext_resource path="res://ui/fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://entities/sounds/step_short.ogg" type="AudioStream" id=6]
-[ext_resource path="res://entities/sounds/sword_on_flesh.wav" type="AudioStream" id=7]
-[ext_resource path="res://entities/sounds/ugh_death.wav" type="AudioStream" id=8]
+[ext_resource path="res://entities/mobs/sprites/walk_right/walk_right1.png" type="Texture" id=2]
+[ext_resource path="res://entities/mobs/sprites/walk_right/walk_right2.png" type="Texture" id=3]
+[ext_resource path="res://entities/mobs/sprites/walk_right/walk_right3.png" type="Texture" id=4]
+[ext_resource path="res://entities/mobs/sprites/walk_right/walk_right4.png" type="Texture" id=5]
+[ext_resource path="res://entities/mobs/sprites/walk_right/walk_right5.png" type="Texture" id=6]
+[ext_resource path="res://entities/mobs/sprites/walk_right/walk_right6.png" type="Texture" id=7]
+[ext_resource path="res://entities/mobs/sprites/walk_right/walk_right7.png" type="Texture" id=8]
+[ext_resource path="res://entities/mobs/sprites/walk_right/walk_right8.png" type="Texture" id=9]
+[ext_resource path="res://entities/mobs/sprites/idle/idle_left.png" type="Texture" id=10]
+[ext_resource path="res://entities/mobs/sprites/idle/idle_right.png" type="Texture" id=11]
+[ext_resource path="res://entities/mobs/sprites/attack_right/attack_right1.png" type="Texture" id=12]
+[ext_resource path="res://entities/mobs/sprites/attack_right/attack_right2.png" type="Texture" id=13]
+[ext_resource path="res://entities/mobs/sprites/attack_right/attack_right3.png" type="Texture" id=14]
+[ext_resource path="res://entities/mobs/sprites/attack_right/attack_right4.png" type="Texture" id=15]
+[ext_resource path="res://entities/mobs/sprites/attack_right/attack_right5.png" type="Texture" id=16]
+[ext_resource path="res://entities/mobs/sprites/reanimate_spell/reanimate_spell1.png" type="Texture" id=17]
+[ext_resource path="res://entities/mobs/sprites/reanimate_spell/reanimate_spell2.png" type="Texture" id=18]
+[ext_resource path="res://entities/mobs/sprites/reanimate_spell/reanimate_spell3.png" type="Texture" id=19]
+[ext_resource path="res://entities/mobs/sprites/reanimate_spell/reanimate_spell4.png" type="Texture" id=20]
+[ext_resource path="res://entities/mobs/sprites/reanimate_spell/reanimate_spell5.png" type="Texture" id=21]
+[ext_resource path="res://entities/mobs/sprites/reanimate_spell/reanimate_spell6.png" type="Texture" id=22]
+[ext_resource path="res://entities/mobs/sprites/reanimate_spell/reanimate_spell7.png" type="Texture" id=23]
+[ext_resource path="res://entities/mobs/sprites/reanimate_spell/reanimate_spell8.png" type="Texture" id=24]
+[ext_resource path="res://entities/mobs/sprites/reanimate_spell/reanimate_spell9.png" type="Texture" id=25]
+[ext_resource path="res://entities/mobs/sprites/reanimate_spell/reanimate_spell10.png" type="Texture" id=26]
+[ext_resource path="res://entities/mobs/sprites/reanimate_spell/reanimate_spell11.png" type="Texture" id=27]
+[ext_resource path="res://entities/mobs/sprites/reanimate_spell/reanimate_spell12.png" type="Texture" id=28]
+[ext_resource path="res://entities/mobs/sprites/reanimate_spell/reanimate_spell13.png" type="Texture" id=29]
+[ext_resource path="res://entities/mobs/sprites/reanimate_spell/reanimate_spell14.png" type="Texture" id=30]
+[ext_resource path="res://entities/mobs/sprites/reanimate_spell/reanimate_spell15.png" type="Texture" id=31]
+[ext_resource path="res://entities/mobs/sprites/walk_left/walk_left1.png" type="Texture" id=32]
+[ext_resource path="res://entities/mobs/sprites/walk_left/walk_left2.png" type="Texture" id=33]
+[ext_resource path="res://entities/mobs/sprites/walk_left/walk_left3.png" type="Texture" id=34]
+[ext_resource path="res://entities/mobs/sprites/walk_left/walk_left4.png" type="Texture" id=35]
+[ext_resource path="res://entities/mobs/sprites/walk_left/walk_left5.png" type="Texture" id=36]
+[ext_resource path="res://entities/mobs/sprites/walk_left/walk_left6.png" type="Texture" id=37]
+[ext_resource path="res://entities/mobs/sprites/walk_left/walk_left7.png" type="Texture" id=38]
+[ext_resource path="res://entities/mobs/sprites/walk_left/walk_left8.png" type="Texture" id=39]
+[ext_resource path="res://entities/mobs/sprites/dead/dead_corpse.png" type="Texture" id=40]
+[ext_resource path="res://entities/mobs/sprites/attack_left/attack_left1.png" type="Texture" id=41]
+[ext_resource path="res://entities/mobs/sprites/attack_left/attack_left2.png" type="Texture" id=42]
+[ext_resource path="res://entities/mobs/sprites/attack_left/attack_left3.png" type="Texture" id=43]
+[ext_resource path="res://entities/mobs/sprites/attack_left/attack_left4.png" type="Texture" id=44]
+[ext_resource path="res://entities/mobs/sprites/attack_left/attack_left5.png" type="Texture" id=45]
+[ext_resource path="res://entities/sprites/bar_border.png" type="Texture" id=46]
+[ext_resource path="res://entities/sprites/bar_fill_blue.png" type="Texture" id=47]
+[ext_resource path="res://ui/fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=48]
+[ext_resource path="res://entities/sounds/step_short.ogg" type="AudioStream" id=49]
+[ext_resource path="res://entities/sounds/sword_on_flesh.wav" type="AudioStream" id=50]
+[ext_resource path="res://entities/sounds/ugh_death.wav" type="AudioStream" id=51]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": true,
-"name": "idle",
-"speed": 4.0
+"name": "walk_right",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": false,
+"name": "idle_left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": false,
+"name": "idle_right",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
+"loop": false,
+"name": "attack_right",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ) ],
+"loop": false,
+"name": "reanimate",
+"speed": 30.0
+}, {
+"frames": [ ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ) ],
+"loop": true,
+"name": "walk_left",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 40 ) ],
+"loop": false,
+"name": "dead",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ) ],
+"loop": false,
+"name": "attack_left",
+"speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 21, 15 )
+extents = Vector2( 16, 25 )
 
 [sub_resource type="DynamicFont" id=3]
-font_data = ExtResource( 5 )
+font_data = ExtResource( 48 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "health_change"
@@ -64,8 +142,8 @@ tracks/2/keys = {
 "values": [ 30, 16 ]
 }
 
-[sub_resource type="ConvexPolygonShape2D" id=7]
-points = PoolVector2Array( 0, -24, 16, -30, 28, -16, 28, 16, 16, 30, 0, 24 )
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 23, 10 )
 
 [sub_resource type="Animation" id=6]
 step = 0.05
@@ -91,11 +169,12 @@ __meta__ = {
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 light_mask = 17
+scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
-animation = "idle"
+animation = "idle_right"
+playing = true
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 4 )
 shape = SubResource( 2 )
 
 [node name="Health" type="Control" parent="."]
@@ -116,8 +195,8 @@ margin_top = -68.0
 margin_right = 12.0
 margin_bottom = -60.0
 value = 50.0
-texture_under = ExtResource( 3 )
-texture_progress = ExtResource( 4 )
+texture_under = ExtResource( 46 )
+texture_progress = ExtResource( 47 )
 
 [node name="Delta" type="Label" parent="Health"]
 visible = false
@@ -150,6 +229,7 @@ __meta__ = {
 }
 
 [node name="Collider" type="CollisionShape2D" parent="Attack"]
+position = Vector2( 24, 1 )
 shape = SubResource( 7 )
 
 [node name="Timer" type="Timer" parent="Attack"]
@@ -161,19 +241,19 @@ __meta__ = {
 }
 
 [node name="Step" type="AudioStreamPlayer2D" parent="SoundFX"]
-stream = ExtResource( 6 )
-volume_db = 20.0
+stream = ExtResource( 49 )
+volume_db = 12.0
 max_distance = 1540.0
 attenuation = 0.5
 
 [node name="Hit" type="AudioStreamPlayer2D" parent="SoundFX"]
-stream = ExtResource( 7 )
+stream = ExtResource( 50 )
 volume_db = -24.0
 max_distance = 1540.0
 attenuation = 0.406126
 
 [node name="Death" type="AudioStreamPlayer2D" parent="SoundFX"]
-stream = ExtResource( 8 )
+stream = ExtResource( 51 )
 volume_db = -26.0
 pitch_scale = 1.2
 max_distance = 1540.0
@@ -182,5 +262,6 @@ attenuation = 0.297302
 [node name="Animator" type="AnimationPlayer" parent="."]
 anims/blink = SubResource( 6 )
 
+[connection signal="animation_finished" from="Sprite" to="." method="_on_animation_finished"]
 [connection signal="body_entered" from="Attack" to="." method="_on_attack_conected"]
 [connection signal="timeout" from="Attack/Timer" to="." method="_on_attack_done"]
